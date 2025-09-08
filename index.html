@@ -1,0 +1,290 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowDownToLine, GraduationCap, Briefcase, Trophy, Mail, Phone, ExternalLink, MapPin, Github, Linkedin, FileText, Award, Globe2, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
+// ——————————————————————————————————————————————————————————
+// 1-PAGE PERSONAL WEBSITE FOR TIARNAN O’ROURKE
+// Tailwind + shadcn/ui + framer-motion. Single file, self-contained.
+// Update any content below as your career evolves.
+// ——————————————————————————————————————————————————————————
+
+const Section = ({ id, title, icon: Icon, children }) => (
+  <section id={id} className="scroll-mt-24 py-10" aria-labelledby={`${id}-title`}>
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="flex items-center gap-3 mb-6">
+        <Icon className="h-6 w-6" aria-hidden />
+        <h2 id={`${id}-title`} className="text-2xl font-semibold tracking-tight">{title}</h2>
+      </div>
+      {children}
+    </div>
+  </section>
+);
+
+const Item = ({ title, subtitle, meta, bullets, right }) => (
+  <Card className="mb-4">
+    <CardHeader className="pb-2">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <CardTitle className="text-lg leading-tight">{title}</CardTitle>
+          {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
+        </div>
+        {right && <div className="text-sm whitespace-nowrap text-muted-foreground">{right}</div>}
+      </div>
+      {meta && <div className="mt-2 flex flex-wrap gap-2">{meta}</div>}
+    </CardHeader>
+    {bullets && (
+      <CardContent className="pt-0">
+        <ul className="list-disc pl-5 space-y-1 text-sm">
+          {bullets.map((b, i) => (
+            <li key={i}>{b}</li>
+          ))}
+        </ul>
+      </CardContent>
+    )}
+  </Card>
+);
+
+const Hero = () => (
+  <div className="relative overflow-hidden">
+    <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-50 via-white to-emerald-50" />
+    <div className="max-w-6xl mx-auto px-4 pt-16 pb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="grid md:grid-cols-3 gap-6 items-center"
+      >
+        <div className="md:col-span-2">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Tiarnan O’Rourke</h1>
+          <p className="mt-3 text-lg text-muted-foreground max-w-2xl">
+            Entrepreneurial data scientist & actuarial analyst focused on ML for healthcare and finance. Founder of
+            Anaphero — building real‑time detection systems for anaphylaxis.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a href="mailto:torourk4@nd.edu" aria-label="Email Tiarnan">
+              <Button>
+                <Mail className="h-4 w-4 mr-2" /> Email
+              </Button>
+            </a>
+            <a href="tel:+15742568652" aria-label="Call Tiarnan">
+              <Button variant="secondary">
+                <Phone className="h-4 w-4 mr-2" /> Call
+              </Button>
+            </a>
+            <a href="https://www.linkedin.com/in/tiarnan-o-rourke" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <Button variant="outline">
+                <Linkedin className="h-4 w-4 mr-2" /> LinkedIn
+                <ExternalLink className="h-3 w-3 ml-2" />
+              </Button>
+            </a>
+            <a href="/mnt/data/TiarnanO'Rourke_CV.pdf" download aria-label="Download CV">
+              <Button variant="ghost">
+                <FileText className="h-4 w-4 mr-2" /> Download CV
+                <ArrowDownToLine className="h-4 w-4 ml-2" />
+              </Button>
+            </a>
+          </div>
+        </div>
+        <div className="md:justify-self-end">
+          <Card className="shadow-md">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2 text-sm">
+                <MapPin className="h-4 w-4" />
+                <span>South Bend, Indiana · Dublin, Ireland · London, U.K.</span>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {["Python","R","SQL","Tableau","Power BI","Stata","BQL","Git"].map((s) => (
+                  <Badge key={s} variant="secondary">{s}</Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </motion.div>
+
+      <nav aria-label="Primary" className="mt-8">
+        <div className="flex flex-wrap gap-3 text-sm">
+          {[
+            ["education","Education"],
+            ["experience","Experience"],
+            ["awards","Awards"],
+            ["projects","Projects"],
+            ["interests","Interests"],
+          ].map(([id, label]) => (
+            <a key={id} href={`#${id}`} className="px-3 py-1 rounded-full border hover:bg-accent hover:text-accent-foreground transition">
+              {label}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </div>
+  </div>
+);
+
+export default function PersonalSite() {
+  return (
+    <main className="font-sans text-slate-900">
+      <Hero />
+
+      {/* EDUCATION */}
+      <Section id="education" title="Education" icon={GraduationCap}>
+        <div className="grid md:grid-cols-2 gap-6">
+          <Item
+            title="University of Notre Dame — M.S. Engineering, Science & Technology Entrepreneurship"
+            subtitle="South Bend, Indiana • 2025 – 2026"
+            meta={<>
+              {[
+                "Data Analytics","Quantitative Analysis","Accounting & Finance","Product Development","Leadership"
+              ].map((m) => <Badge key={m} variant="outline">{m}</Badge>)}
+            </>}
+          />
+          <Item
+            title="University College Dublin — B.Sc. Actuarial & Financial Studies"
+            subtitle="Dublin, Ireland • 2021 – 2025"
+            meta={<>
+              {[
+                "Advanced Statistics","Advanced Calculus","Time Series Analysis","Machine Learning","International Finance"
+              ].map((m) => <Badge key={m} variant="outline">{m}</Badge>)}
+            </>}
+          />
+        </div>
+      </Section>
+
+      {/* EXPERIENCE */}
+      <Section id="experience" title="Experience" icon={Briefcase}>
+        <Item
+          title="Anaphero — Founder & Lead Developer"
+          subtitle="Med‑tech startup focused on predictive models for real‑time detection of anaphylaxis in children"
+          right="Jan 2024 – Present • Dublin, Ireland"
+          bullets={[
+            "Global 1st Place (People’s Choice) & 3rd Place (Judges’ Choice) at Huawei Tech4Good finals (700+ startups)",
+            "1st Place National Hult Prize; Top 20 global startup of 250,000+ entrants; competing for $1M investment"
+          ]}
+        />
+        <Item
+          title="Dynamo Analytics — Data Analytics & Actuary, Intern"
+          right="Jan 2024 – Jul 2024 • London, U.K."
+          bullets={[
+            "Optimized data models with Python & SQL, reducing errors by 6% and streamlining actuarial workflows",
+            "Built automation tools boosting onboarding by 11%, cutting processing times by 21% (team won InsuranceERM Award)",
+            "Applied quantitative risk models for pricing, reserving & capital modelling; stress‑tested buffers under macro shocks"
+          ]}
+        />
+        <Item
+          title="UCD Student Management Fund — Equity Analyst"
+          right="Sept 2022 – May 2024 • Dublin, Ireland"
+          bullets={[
+            "Researched & executed equity strategies focusing on volatility and sector momentum",
+            "Built Python program to disaggregate daily volatility of value & momentum stocks vs. sector and market",
+            "Conducted liquidity analysis of mid‑caps to optimize execution & slippage risk; delivered performance reports"
+          ]}
+        />
+        <Item
+          title="VHI Ireland — Actuarial Analyst Intern (Financial Modelling Team)"
+          right="May 2023 – Sept 2023 • Dublin, Ireland"
+          bullets={[
+            "Analyzed 100k+ claims & transactions; produced bi‑monthly insights for stakeholders",
+            "Built Monte Carlo tools to test capital adequacy under stressed scenarios",
+            "Developed EUC loader to migrate Excel→SQL (saving 4+ hrs weekly) & VBA scripts cutting manual errors by ~6%"
+          ]}
+        />
+        <Item
+          title="Amazon — Technology Intern"
+          right="Apr 2022 • London, U.K."
+          bullets={[
+            "Completed modules in JavaScript, Java & Python; workshops with Amazon software engineers on security & SWE"
+          ]}
+        />
+        <Item
+          title="AllergyAct — Co‑Founder"
+          right="Jul 2022 – Present • Dublin, Ireland"
+          bullets={[
+            "Social enterprise and educational platform supporting 2,500+ allergy patients worldwide",
+            "Built alert software using a pollen‑tracking API and QR scanning for packaged food allergen detection"
+          ]}
+        />
+      </Section>
+
+      {/* AWARDS & SCHOLARSHIPS */}
+      <Section id="awards" title="Awards & Scholarships" icon={Award}>
+        <div className="grid md:grid-cols-2 gap-6">
+          <Item
+            title="George Moore Scholarship (2025)"
+            subtitle="Awarded nationally for academic excellence and potential as a future global changemaker"
+            right={<Badge variant="secondary">Academic</Badge>}
+          />
+          <Item
+            title="Huawei Scholarship (2025) — Tech4Good"
+            subtitle="Irish Scholar in Global Tech4Good competition driving Tech solutions for EU Sustainability Goals"
+            right={<Badge variant="secondary">Tech</Badge>}
+          />
+          <Item
+            title="UCD Irish Scholarship (2025)"
+            subtitle="Outstanding Irish language ability and international achievements promoting the language"
+            right={<Badge variant="secondary">Cultural</Badge>}
+          />
+          <Item
+            title="UCD Academic Entrance Scholarship (2021)"
+            subtitle="Placed in the top 1% nationally in Ireland"
+            right={<Badge variant="secondary">Merit</Badge>}
+          />
+          <Item
+            title="Outstanding Academic of the Year (2021)"
+            subtitle="Achieved maximum possible score in national exams (SAT equivalent)"
+            right={<Badge variant="secondary">Excellence</Badge>}
+          />
+        </div>
+      </Section>
+
+      {/* PROJECTS */}
+      <Section id="projects" title="Projects & Ventures" icon={Globe2}>
+        <Item
+          title="Huawei Tech4Good — AI Wearable for Early Anaphylaxis Detection"
+          right="Global & Europe"
+          bullets={[
+            "Led team to 1st place (World People’s Choice), 3rd place (World Judges’ Choice), and 1st in Europe",
+            "Prototyped ML‑powered wearable for life‑saving early detection of anaphylaxis in children"
+          ]}
+        />
+        <Item
+          title="Hult Prize Challenge — Global Accelerator"
+          right="Top 20 of 250,000+"
+          bullets={[
+            "1st place at National finals; awarded fully funded mentorship; invited to global accelerator"
+          ]}
+        />
+      </Section>
+
+      {/* INTERESTS */}
+      <Section id="interests" title="Interests" icon={Trophy}>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <Badge><Sparkles className="h-3 w-3 mr-1" /> Handball — 2024 World Championship Finalist</Badge>
+              <Badge variant="outline">2022 National Colleges Doubles Champion</Badge>
+              <Badge variant="secondary">2014–2020 Ulster Champion</Badge>
+              <Badge variant="outline">Basketball — Represented Ireland (2019 Global U‑Team, Hungary)</Badge>
+            </div>
+          </CardContent>
+        </Card>
+      </Section>
+
+      {/* FOOTER */}
+      <footer className="py-10 border-t mt-6">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Tiarnan O’Rourke. All rights reserved.</p>
+          <div className="flex gap-3">
+            <a href="mailto:torourk4@nd.edu" className="inline-flex items-center text-sm hover:underline"><Mail className="h-4 w-4 mr-1" /> torourk4@nd.edu</a>
+            <span className="text-muted-foreground">•</span>
+            <a href="tel:+15742568652" className="inline-flex items-center text-sm hover:underline"><Phone className="h-4 w-4 mr-1" /> (574) 256‑8652</a>
+            <span className="text-muted-foreground">•</span>
+            <a href="https://www.linkedin.com/in/tiarnan-o-rourke" target="_blank" rel="noreferrer" className="inline-flex items-center text-sm hover:underline"><Linkedin className="h-4 w-4 mr-1" /> LinkedIn</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
