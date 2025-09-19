@@ -1,290 +1,303 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { ArrowDownToLine, GraduationCap, Briefcase, Trophy, Mail, Phone, ExternalLink, MapPin, Github, Linkedin, FileText, Award, Globe2, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-
-// ——————————————————————————————————————————————————————————
-// 1-PAGE PERSONAL WEBSITE FOR TIARNAN O’ROURKE
-// Tailwind + shadcn/ui + framer-motion. Single file, self-contained.
-// Update any content below as your career evolves.
-// ——————————————————————————————————————————————————————————
-
-const Section = ({ id, title, icon: Icon, children }) => (
-  <section id={id} className="scroll-mt-24 py-10" aria-labelledby={`${id}-title`}>
-    <div className="max-w-6xl mx-auto px-4">
-      <div className="flex items-center gap-3 mb-6">
-        <Icon className="h-6 w-6" aria-hidden />
-        <h2 id={`${id}-title`} className="text-2xl font-semibold tracking-tight">{title}</h2>
-      </div>
-      {children}
-    </div>
-  </section>
-);
-
-const Item = ({ title, subtitle, meta, bullets, right }) => (
-  <Card className="mb-4">
-    <CardHeader className="pb-2">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <CardTitle className="text-lg leading-tight">{title}</CardTitle>
-          {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
-        </div>
-        {right && <div className="text-sm whitespace-nowrap text-muted-foreground">{right}</div>}
-      </div>
-      {meta && <div className="mt-2 flex flex-wrap gap-2">{meta}</div>}
-    </CardHeader>
-    {bullets && (
-      <CardContent className="pt-0">
-        <ul className="list-disc pl-5 space-y-1 text-sm">
-          {bullets.map((b, i) => (
-            <li key={i}>{b}</li>
-          ))}
-        </ul>
-      </CardContent>
-    )}
-  </Card>
-);
-
-const Hero = () => (
-  <div className="relative overflow-hidden">
-    <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-50 via-white to-emerald-50" />
-    <div className="max-w-6xl mx-auto px-4 pt-16 pb-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="grid md:grid-cols-3 gap-6 items-center"
-      >
-        <div className="md:col-span-2">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Tiarnan O’Rourke</h1>
-          <p className="mt-3 text-lg text-muted-foreground max-w-2xl">
-            Entrepreneurial data scientist & actuarial analyst focused on ML for healthcare and finance. Founder of
-            Anaphero — building real‑time detection systems for anaphylaxis.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <a href="mailto:torourk4@nd.edu" aria-label="Email Tiarnan">
-              <Button>
-                <Mail className="h-4 w-4 mr-2" /> Email
-              </Button>
-            </a>
-            <a href="tel:+15742568652" aria-label="Call Tiarnan">
-              <Button variant="secondary">
-                <Phone className="h-4 w-4 mr-2" /> Call
-              </Button>
-            </a>
-            <a href="https://www.linkedin.com/in/tiarnan-o-rourke" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <Button variant="outline">
-                <Linkedin className="h-4 w-4 mr-2" /> LinkedIn
-                <ExternalLink className="h-3 w-3 ml-2" />
-              </Button>
-            </a>
-            <a href="/mnt/data/TiarnanO'Rourke_CV.pdf" download aria-label="Download CV">
-              <Button variant="ghost">
-                <FileText className="h-4 w-4 mr-2" /> Download CV
-                <ArrowDownToLine className="h-4 w-4 ml-2" />
-              </Button>
-            </a>
-          </div>
-        </div>
-        <div className="md:justify-self-end">
-          <Card className="shadow-md">
-            <CardContent className="p-5">
-              <div className="flex items-center gap-2 text-sm">
-                <MapPin className="h-4 w-4" />
-                <span>South Bend, Indiana · Dublin, Ireland · London, U.K.</span>
-              </div>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {["Python","R","SQL","Tableau","Power BI","Stata","BQL","Git"].map((s) => (
-                  <Badge key={s} variant="secondary">{s}</Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </motion.div>
-
-      <nav aria-label="Primary" className="mt-8">
-        <div className="flex flex-wrap gap-3 text-sm">
-          {[
-            ["education","Education"],
-            ["experience","Experience"],
-            ["awards","Awards"],
-            ["projects","Projects"],
-            ["interests","Interests"],
-          ].map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="px-3 py-1 rounded-full border hover:bg-accent hover:text-accent-foreground transition">
-              {label}
-            </a>
-          ))}
-        </div>
-      </nav>
-    </div>
-  </div>
-);
-
-export default function PersonalSite() {
-  return (
-    <main className="font-sans text-slate-900">
-      <Hero />
-
-      {/* EDUCATION */}
-      <Section id="education" title="Education" icon={GraduationCap}>
-        <div className="grid md:grid-cols-2 gap-6">
-          <Item
-            title="University of Notre Dame — M.S. Engineering, Science & Technology Entrepreneurship"
-            subtitle="South Bend, Indiana • 2025 – 2026"
-            meta={<>
-              {[
-                "Data Analytics","Quantitative Analysis","Accounting & Finance","Product Development","Leadership"
-              ].map((m) => <Badge key={m} variant="outline">{m}</Badge>)}
-            </>}
-          />
-          <Item
-            title="University College Dublin — B.Sc. Actuarial & Financial Studies"
-            subtitle="Dublin, Ireland • 2021 – 2025"
-            meta={<>
-              {[
-                "Advanced Statistics","Advanced Calculus","Time Series Analysis","Machine Learning","International Finance"
-              ].map((m) => <Badge key={m} variant="outline">{m}</Badge>)}
-            </>}
-          />
-        </div>
-      </Section>
-
-      {/* EXPERIENCE */}
-      <Section id="experience" title="Experience" icon={Briefcase}>
-        <Item
-          title="Anaphero — Founder & Lead Developer"
-          subtitle="Med‑tech startup focused on predictive models for real‑time detection of anaphylaxis in children"
-          right="Jan 2024 – Present • Dublin, Ireland"
-          bullets={[
-            "Global 1st Place (People’s Choice) & 3rd Place (Judges’ Choice) at Huawei Tech4Good finals (700+ startups)",
-            "1st Place National Hult Prize; Top 20 global startup of 250,000+ entrants; competing for $1M investment"
-          ]}
-        />
-        <Item
-          title="Dynamo Analytics — Data Analytics & Actuary, Intern"
-          right="Jan 2024 – Jul 2024 • London, U.K."
-          bullets={[
-            "Optimized data models with Python & SQL, reducing errors by 6% and streamlining actuarial workflows",
-            "Built automation tools boosting onboarding by 11%, cutting processing times by 21% (team won InsuranceERM Award)",
-            "Applied quantitative risk models for pricing, reserving & capital modelling; stress‑tested buffers under macro shocks"
-          ]}
-        />
-        <Item
-          title="UCD Student Management Fund — Equity Analyst"
-          right="Sept 2022 – May 2024 • Dublin, Ireland"
-          bullets={[
-            "Researched & executed equity strategies focusing on volatility and sector momentum",
-            "Built Python program to disaggregate daily volatility of value & momentum stocks vs. sector and market",
-            "Conducted liquidity analysis of mid‑caps to optimize execution & slippage risk; delivered performance reports"
-          ]}
-        />
-        <Item
-          title="VHI Ireland — Actuarial Analyst Intern (Financial Modelling Team)"
-          right="May 2023 – Sept 2023 • Dublin, Ireland"
-          bullets={[
-            "Analyzed 100k+ claims & transactions; produced bi‑monthly insights for stakeholders",
-            "Built Monte Carlo tools to test capital adequacy under stressed scenarios",
-            "Developed EUC loader to migrate Excel→SQL (saving 4+ hrs weekly) & VBA scripts cutting manual errors by ~6%"
-          ]}
-        />
-        <Item
-          title="Amazon — Technology Intern"
-          right="Apr 2022 • London, U.K."
-          bullets={[
-            "Completed modules in JavaScript, Java & Python; workshops with Amazon software engineers on security & SWE"
-          ]}
-        />
-        <Item
-          title="AllergyAct — Co‑Founder"
-          right="Jul 2022 – Present • Dublin, Ireland"
-          bullets={[
-            "Social enterprise and educational platform supporting 2,500+ allergy patients worldwide",
-            "Built alert software using a pollen‑tracking API and QR scanning for packaged food allergen detection"
-          ]}
-        />
-      </Section>
-
-      {/* AWARDS & SCHOLARSHIPS */}
-      <Section id="awards" title="Awards & Scholarships" icon={Award}>
-        <div className="grid md:grid-cols-2 gap-6">
-          <Item
-            title="George Moore Scholarship (2025)"
-            subtitle="Awarded nationally for academic excellence and potential as a future global changemaker"
-            right={<Badge variant="secondary">Academic</Badge>}
-          />
-          <Item
-            title="Huawei Scholarship (2025) — Tech4Good"
-            subtitle="Irish Scholar in Global Tech4Good competition driving Tech solutions for EU Sustainability Goals"
-            right={<Badge variant="secondary">Tech</Badge>}
-          />
-          <Item
-            title="UCD Irish Scholarship (2025)"
-            subtitle="Outstanding Irish language ability and international achievements promoting the language"
-            right={<Badge variant="secondary">Cultural</Badge>}
-          />
-          <Item
-            title="UCD Academic Entrance Scholarship (2021)"
-            subtitle="Placed in the top 1% nationally in Ireland"
-            right={<Badge variant="secondary">Merit</Badge>}
-          />
-          <Item
-            title="Outstanding Academic of the Year (2021)"
-            subtitle="Achieved maximum possible score in national exams (SAT equivalent)"
-            right={<Badge variant="secondary">Excellence</Badge>}
-          />
-        </div>
-      </Section>
-
-      {/* PROJECTS */}
-      <Section id="projects" title="Projects & Ventures" icon={Globe2}>
-        <Item
-          title="Huawei Tech4Good — AI Wearable for Early Anaphylaxis Detection"
-          right="Global & Europe"
-          bullets={[
-            "Led team to 1st place (World People’s Choice), 3rd place (World Judges’ Choice), and 1st in Europe",
-            "Prototyped ML‑powered wearable for life‑saving early detection of anaphylaxis in children"
-          ]}
-        />
-        <Item
-          title="Hult Prize Challenge — Global Accelerator"
-          right="Top 20 of 250,000+"
-          bullets={[
-            "1st place at National finals; awarded fully funded mentorship; invited to global accelerator"
-          ]}
-        />
-      </Section>
-
-      {/* INTERESTS */}
-      <Section id="interests" title="Interests" icon={Trophy}>
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex flex-wrap items-center gap-3 text-sm">
-              <Badge><Sparkles className="h-3 w-3 mr-1" /> Handball — 2024 World Championship Finalist</Badge>
-              <Badge variant="outline">2022 National Colleges Doubles Champion</Badge>
-              <Badge variant="secondary">2014–2020 Ulster Champion</Badge>
-              <Badge variant="outline">Basketball — Represented Ireland (2019 Global U‑Team, Hungary)</Badge>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiarnan O'Rourke - Quant-minded Product Builder</title>
+    <meta name="description" content="Irish data + product generalist with hands-on experience across ML deployment, predictive modeling, and healthcare analytics. Founder of med-tech startup Anaphero.">
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Tiarnan O'Rourke - Quant-minded Product Builder">
+    <meta property="og:description" content="Irish data + product generalist with hands-on experience across ML deployment, predictive modeling, and healthcare analytics.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tiarnanorourke.com">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tiarnan O'Rourke - Quant-minded Product Builder">
+    <meta name="twitter:description" content="Irish data + product generalist with hands-on experience across ML deployment, predictive modeling, and healthcare analytics.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Tiarnan O'Rourke",
+        "email": "torourk4@nd.edu",
+        "sameAs": "https://www.linkedin.com/in/tiarnan-o-rourke",
+        "alumniOf": [
+            {
+                "@type": "CollegeOrUniversity",
+                "name": "University of Notre Dame"
+            },
+            {
+                "@type": "CollegeOrUniversity", 
+                "name": "University College Dublin"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <a href="#home">Tiarnan O'Rourke</a>
             </div>
-          </CardContent>
-        </Card>
-      </Section>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects & Awards</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-      {/* FOOTER */}
-      <footer className="py-10 border-t mt-6">
-        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Tiarnan O’Rourke. All rights reserved.</p>
-          <div className="flex gap-3">
-            <a href="mailto:torourk4@nd.edu" className="inline-flex items-center text-sm hover:underline"><Mail className="h-4 w-4 mr-1" /> torourk4@nd.edu</a>
-            <span className="text-muted-foreground">•</span>
-            <a href="tel:+15742568652" className="inline-flex items-center text-sm hover:underline"><Phone className="h-4 w-4 mr-1" /> (574) 256‑8652</a>
-            <span className="text-muted-foreground">•</span>
-            <a href="https://www.linkedin.com/in/tiarnan-o-rourke" target="_blank" rel="noreferrer" className="inline-flex items-center text-sm hover:underline"><Linkedin className="h-4 w-4 mr-1" /> LinkedIn</a>
-          </div>
-        </div>
-      </footer>
+    <main id="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-image">
+                    <img src="assets/profile-photo.jpg" alt="Tiarnan O'Rourke" class="profile-photo">
+                </div>
+                <h1 class="hero-title">Tiarnan O'Rourke</h1>
+                <p class="hero-tagline">Quant-minded product builder turning data into real-world impact.</p>
+                <p class="hero-subtext">MS ESTEEM (Notre Dame) • BSc Actuarial & Financial Studies (UCD)</p>
+                <div class="hero-ctas">
+                    <a href="#contact" class="btn btn-primary">Contact Me</a>
+                    <a href="/assets/Tiarnan_ORourke_Resume.pdf" class="btn btn-outline" target="_blank" rel="noopener">Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About</h2>
+                <div class="about-content">
+                    <p>Irish data + product generalist with hands-on experience across ML deployment, predictive modeling, and healthcare analytics.</p>
+                    <p>Founder of med-tech startup Anaphero; award track record at Huawei Tech4Good and Hult Prize.</p>
+                    <p>Comfortable shipping from prototype to production and communicating insights to stakeholders.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <div class="skill-chips">
+                            <span class="chip">Python</span>
+                            <span class="chip">R</span>
+                            <span class="chip">SQL</span>
+                            <span class="chip">Tableau</span>
+                            <span class="chip">Power BI</span>
+                            <span class="chip">VBA</span>
+                            <span class="chip">Excel</span>
+                            <span class="chip">Stata</span>
+                            <span class="chip">BQL</span>
+                            <span class="chip">Google Analytics</span>
+                            <span class="chip">Git</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Experience Areas</h3>
+                        <div class="skill-chips">
+                            <span class="chip">ML Deployment</span>
+                            <span class="chip">Predictive Modelling</span>
+                            <span class="chip">Advanced Statistics</span>
+                            <span class="chip">Data & Healthcare Analytics</span>
+                            <span class="chip">Entrepreneurship</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="experience-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Anaphero</h3>
+                            <p class="card-role">Founder & Lead Developer</p>
+                            <p class="card-location">Dublin, Ireland • Jan 2024 – Present</p>
+                        </div>
+                        <div class="card-content">
+                            <ul>
+                                <li>Building predictive models and real-time detection systems for anaphylaxis in children.</li>
+                                <li>Global awards: 1st (People's Choice) + 3rd (Judges') in Huawei Tech4Good finals (700+ teams).</li>
+                                <li>1st Place National Hult Prize; Top-20 globally; competing for $1M investment.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Dynamo Analytics</h3>
+                            <p class="card-role">Data Analytics & Actuary (Intern)</p>
+                            <p class="card-location">London, U.K. • Jan 2024 – Jul 2024</p>
+                        </div>
+                        <div class="card-content">
+                            <ul>
+                                <li>Optimized Python/SQL data models (−6% errors), improved labeling & actuarial workflows.</li>
+                                <li>Built automation tools (onboarding +11%, processing time −21%); contributed to InsuranceERM Award.</li>
+                                <li>Stress-tested reserving buffers under macro shock & inflation scenarios.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>UCD Student Management Fund</h3>
+                            <p class="card-role">Equity Analyst</p>
+                            <p class="card-location">Dublin, Ireland • Sept 2022 – May 2024</p>
+                        </div>
+                        <div class="card-content">
+                            <ul>
+                                <li>Built Python program to disaggregate daily volatility of value/momentum vs. sector/market.</li>
+                                <li>Executed strategies focused on volatility and sector momentum; wrote investor-ready reports.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>VHI (Voluntary Health Insurance)</h3>
+                            <p class="card-role">Actuarial Analyst Intern</p>
+                            <p class="card-location">Dublin, Ireland • May 2023 – Sept 2023</p>
+                        </div>
+                        <div class="card-content">
+                            <ul>
+                                <li>Analyzed 100k+ annual claims; produced bi-monthly insights for stakeholders.</li>
+                                <li>Monte Carlo tools for capital adequacy; EUC loader for Excel→SQL saving 4+ hrs/week.</li>
+                                <li>VBA automations reduced manual errors by ~6%.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Irish Collegiate Handball Association</h3>
+                            <p class="card-role">Treasurer</p>
+                            <p class="card-location">Dublin, Ireland • Sept 2023 – Present</p>
+                        </div>
+                        <div class="card-content">
+                            <ul>
+                                <li>Managed budgets & operations; secured €10,000+ in new sponsorships and grants (budget +40% YoY).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Amazon</h3>
+                            <p class="card-role">Technology Intern</p>
+                            <p class="card-location">London, U.K. • Apr 2022</p>
+                        </div>
+                        <div class="card-content">
+                            <ul>
+                                <li>Cybersecurity & software engineering program; completed modules in JavaScript, Java, Python.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects & Awards Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Projects & Awards</h2>
+                <div class="projects-grid">
+                    <div class="card">
+                        <h3>Huawei Tech4Good Global</h3>
+                        <p>AI wearable for early anaphylaxis detection; People's Choice (1st), Judges' Choice (3rd), 1st in Europe.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Hult Prize</h3>
+                        <p>1st place National finals, Top-50 (250,000+ participants), invited to global accelerator.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Academic Scholarships</h3>
+                        <p>George Moore (full-ride), Huawei Scholarship (EU sustainability tech), UCD Irish Scholarship, UCD Academic Entrance, Outstanding Academic of the Year.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="education-grid">
+                    <div class="card">
+                        <h3>University of Notre Dame</h3>
+                        <p class="card-role">MS Engineering, Science & Technology Entrepreneurship</p>
+                        <p class="card-location">2025–2026</p>
+                        <div class="card-content">
+                            <p><strong>Relevant:</strong> Data Analytics, Product Development, Leadership, Object Design & Fabrication</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>University College Dublin</h3>
+                        <p class="card-role">BSc in Actuarial & Financial Studies</p>
+                        <p class="card-location">2021–2025</p>
+                        <div class="card-content">
+                            <p><strong>Relevant:</strong> Advanced Statistics, Advanced Calculus, Time Series, Machine Learning, International Finance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section id="interests" class="section">
+            <div class="container">
+                <h2 class="section-title">Interests</h2>
+                <div class="interests-content">
+                    <p><strong>Handball</strong> (2024 World Championship finalist; 2022 National Colleges Doubles Champion; 2014–2020 Ulster Champion) • <strong>Basketball</strong> (Ireland 2019 Northeast underage team) • <strong>Entrepreneurship</strong> • <strong>Healthcare AI</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Contact</h2>
+                <div class="contact-content">
+                    <div class="contact-item">
+                        <strong>Email:</strong> <a href="mailto:torourk4@nd.edu">torourk4@nd.edu</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Phone:</strong> <a href="tel:+15742568652">(574) 256 8652</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tiarnan-o-rourke" target="_blank" rel="noopener">linkedin.com/in/tiarnan-o-rourke</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-  );
-}
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tiarnan O'Rourke. Built with HTML & CSS.</p>
+        </div>
+    </footer>
+</body>
+</html>
